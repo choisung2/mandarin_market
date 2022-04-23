@@ -31,10 +31,13 @@ export const PostUpload = () => {
     }
   }
 
-  const { data: session } = useSession()
+  const token = window.localStorage.getItem('token')
+  const loginUser = window.localStorage.getItem('account')
 
-  const token = session?.user?.name
-  const loginUser = session?.user?.email
+  // const { data: session } = useSession()
+
+  // const token = session?.user?.name
+  // const loginUser = session?.user?.email
 
   const [profileImg, setProfileImg] = useState('/images/ellipse-profile.svg');
 

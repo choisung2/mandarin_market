@@ -12,8 +12,10 @@ interface FollowingProps {
 }
 
 export const Card = ({ followingData }: FollowingProps) => {
-  const { data: session } = useSession();
-  const token = session?.user?.name;
+
+  const token = window.localStorage.getItem('token')
+  // const { data: session } = useSession();
+  // const token = session?.user?.name;
 
   const { image, intro, username, isfollow, accountname } = followingData;
 

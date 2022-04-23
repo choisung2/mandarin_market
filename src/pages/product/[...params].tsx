@@ -8,6 +8,7 @@ import { ProductModification } from "../../components/product/Modification";
 const ProdcutEdit: NextPage = () => {
   const router = useRouter();
   const [id, setId] = useState("0");
+  
   useEffect(() => {
     try {
       setId(router.query.params![0]);

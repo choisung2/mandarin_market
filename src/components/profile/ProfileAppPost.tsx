@@ -15,15 +15,15 @@ export const ProfileAppPost = ({postList}: PostProps) => {
       {postList.map((postData) => {
         return (
           <>
-          {postData.image !== ''
-          ? <Link key={postData.id} href={`/postdetail/${postData.id}`}>
-              <ImgWrap>
-                {postData.image.split(',').length > 1 ? <ContentCopyIcon className="icon" /> : null}
-                <Img src={postData.image.split(',')[0]} />
-              </ImgWrap>
-            </Link>
-          : null
-          }
+            {postData.image !== ''
+            ? <Link key={postData.id} href={`/postdetail/${postData.id}`}>
+                <ImgWrap>
+                  {postData.image.split(',').length > 1 ? <ContentCopyIcon className="icon" /> : null}
+                  <Img src={postData.image.split(',')[0]} />
+                </ImgWrap>
+              </Link>
+            : null
+            }
           </>
         )
       })}

@@ -12,6 +12,7 @@ interface Account {
 }
 
 export const MyProfileInfo = ({ account }: Account) => {
+
   const [userList, setUserList] = useState({
     accountname: "",
     follower: [],
@@ -36,10 +37,13 @@ export const MyProfileInfo = ({ account }: Account) => {
     username,
   } = userList;
 
-  const { data: session } = useSession();
+  const token = window.localStorage.getItem('token')
+  const loginUser = window.localStorage.getItem('account')
 
-  const token = session?.user?.name;
-  const loginUser = session?.user?.email;
+  // const { data: session } = useSession();
+
+  // const token = session?.user?.name;
+  // const loginUser = session?.user?.email;
 
   const getProfile = async () => {
     const res = await axios.get(
@@ -56,7 +60,7 @@ export const MyProfileInfo = ({ account }: Account) => {
 
   useEffect(() => {
     getProfile();
-  }, []);
+  }, [account]);
 
   const follow = async () => {
     await axios(

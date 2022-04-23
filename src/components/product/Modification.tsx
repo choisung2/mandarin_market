@@ -11,8 +11,6 @@ interface id {
 }
 
 export const ProductModification = ({id}: id) => {
-
-  console.log(id);
   
   const router = useRouter()
 
@@ -35,10 +33,11 @@ export const ProductModification = ({id}: id) => {
   const [isPrice, setIsPrice] = useState(false)
   const [isUrl, setIsUrl] = useState(false)
 
+  const token = window.localStorage.getItem('token')
 
-  const { data: session } = useSession()
+  // const { data: session } = useSession()
 
-  const token = session?.user?.name
+  // const token = session?.user?.name
 
   const getProduct = async () => {
     try{
@@ -52,15 +51,14 @@ export const ProductModification = ({id}: id) => {
       setPrice(res.data.product.price+"")
       setUrl(res.data.product.link)
       setImage(res.data.product.itemImage)
-      console.log(res.data.product.price+"");
     } catch (err) {
       console.log(err);
     }
   };
 
   useEffect(() => {
-    getProduct()
-  }, [])
+    if(id !== "0") getProduct()
+  }, [id])
 
   const onChange = (e: any) => {
     const {target: {name, value}} = e
@@ -89,8 +87,6 @@ export const ProductModification = ({id}: id) => {
       }
     }
   }
-  
-  
 
   const editProduct = async () => {
     try {
@@ -112,7 +108,6 @@ export const ProductModification = ({id}: id) => {
     } catch(err) {
       console.log(err);
     }
-    
   };
   
   const onSubmit = (e: any) => {

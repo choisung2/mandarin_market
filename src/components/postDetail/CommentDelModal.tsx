@@ -22,11 +22,10 @@ export const CommentDelModal = ({ postId, id, token, closeDelModal }: closeDelMo
         'Content-type': 'application/json',
       },
     })
-      console.log('성공');
     } catch(err){
       console.log(err);
     }
-
+    router.push('/home')
     router.push(`/postdetail/${postId}`);
     closeDelModal()
     // window.location.reload()

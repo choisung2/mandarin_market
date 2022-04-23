@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import axios from "axios";
-import { API_ENDPOINT } from "../../constants";
+import { API_ENDPOINT, COLOR } from "../../constants";
 import { MyPost } from "../../types/MyPost";
 import { ReportModal } from "../home/ReportModal";
 import { CancelModal } from "../home/ReportCancelModal";
@@ -20,6 +20,8 @@ interface Post {
 export const PostDetailCard = ({postData, token, loginUser}: Post) => {
 
   const { author, commentCount, content, createdAt, id, image } = postData;
+
+  const imgArr = image.split(',')
 
   const updatedDate = `${createdAt.slice(0, 4)}년 ${createdAt.slice(5, 7,).replace(/(^0+)/, "")}월 ${createdAt.slice(8, 10).replace(/(^0+)/, "")}일`
   
@@ -58,9 +60,11 @@ export const PostDetailCard = ({postData, token, loginUser}: Post) => {
   };
 
   const [hearted, setHearted] = useState(postData.hearted);
-  const [heartCount, setHeartCount] = useState(postData.heartCount);
- 
-  // console.log(heartCount);
+  const [heartCount, setHeartCount] = useState(0);
+
+  useEffect(() => {
+    setHeartCount(postData.heartCount)
+  }, [postData, heartCount, setHeartCount, hearted])
 
   const onClick = async () => {
     try {
@@ -72,7 +76,7 @@ export const PostDetailCard = ({postData, token, loginUser}: Post) => {
             "Content-type": "application/json",
           },
         });
-        setHeartCount(heartCount + 1);
+        setHeartCount(heartCount +  1);
       } else {
         await axios(`${API_ENDPOINT}post/${id}/unheart`, {
           method: "delete",
@@ -87,6 +91,30 @@ export const PostDetailCard = ({postData, token, loginUser}: Post) => {
       console.error(err);
     }
     setHearted(!hearted);
+  };
+
+  const [nextImg, setNextImg] = useState("");
+  const [changeFirstBtnColor, setChangeFirstBtnColor] = useState(true);
+  const [changeSecondBtnColor, setChangeSecondBtnColor] = useState(false);
+  const [changeThirdBtnColor, setChangeThirdBtnColor] = useState(false);
+
+  const slider = (event: any) => {
+    if (event.target.className.includes("second-btn")) {
+      setNextImg("secondChange");
+      setChangeFirstBtnColor(false);
+      setChangeSecondBtnColor(true);
+      setChangeThirdBtnColor(false);
+    } else if (event.target.className.includes("third-btn")) {
+      setNextImg("thirdChange");
+      setChangeSecondBtnColor(false);
+      setChangeThirdBtnColor(true);
+      setChangeFirstBtnColor(false);
+    } else {
+      setNextImg("");
+      setChangeFirstBtnColor(true);
+      setChangeSecondBtnColor(false);
+      setChangeThirdBtnColor(false);
+    }
   };
 
   return (
@@ -104,17 +132,87 @@ export const PostDetailCard = ({postData, token, loginUser}: Post) => {
         <PostCont>
           <h4 className="sr-only">포스트 내용</h4>
           <PostTxt>{content}</PostTxt>
-          <PostImgCont>
+          <PostImgCont className={nextImg}>
             <PostImgList>
-              <PostImgItem>
-                <PostImg src={image} alt="post-img" />
-              </PostImgItem>
+              {image !== '' && 
+              (
+                <>
+                  {imgArr.map((img) => {
+                    return (
+                      <PostImgItem key={img}>
+                        <PostImg src={img} alt="post-img" />
+                      </PostImgItem>
+                    )
+                  })}
+                </>
+              )}
             </PostImgList>
           </PostImgCont>
+          <PostImgBtnList
+              className={imgArr.length < 2 ? "btnHidden" : ""}
+            >
+            {imgArr.length === 2 ? (
+              <>
+                <li>
+                  <PostImgBtn
+                    className={`${
+                      changeFirstBtnColor
+                        ? "first-btn first-change"
+                        : "first-btn"
+                    }`}
+                    onClick={slider}
+                  ></PostImgBtn>
+                </li>
+                <li>
+                  <PostImgBtn
+                    className={`${
+                      changeSecondBtnColor
+                        ? "second second-change"
+                        : "second-btn"
+                    }`}
+                    onClick={slider}
+                  ></PostImgBtn>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <PostImgBtn
+                    className={`${
+                      changeFirstBtnColor
+                        ? "first-btn first-change"
+                        : "first-btn"
+                    }`}
+                    onClick={slider}
+                  ></PostImgBtn>
+                </li>
+                <li>
+                  <PostImgBtn
+                    className={`${
+                      changeSecondBtnColor
+                        ? "second-btn second-change"
+                        : "second-btn"
+                    }`}
+                    onClick={slider}
+                  ></PostImgBtn>
+                </li>
+                <li>
+                  <PostImgBtn
+                    className={`${
+                      changeThirdBtnColor
+                        ? "third-btn third-change"
+                        : "third-btn"
+                    }`}
+                    onClick={slider}
+                  ></PostImgBtn>
+                </li>
+              </>
+            )}
+          </PostImgBtnList>
           <LikeCommentCont>
             <Like aria-label="좋아요 버튼" onClick={onClick} hearted={hearted}>
               <FavoriteBorderIcon />
-              <span>{heartCount}</span>
+              <span>{heartCount }</span>
             </Like>
             <Comment>
               <ChatBubbleOutlineIcon className="icon" />
@@ -203,7 +301,8 @@ const AuthorId = styled.strong`
 `;
 
 const PostCont = styled.section`
-  padding-left: 54px;
+  margin-left: 54px;
+  overflow: hidden;
 `;
 
 const PostTxt = styled.p`
@@ -211,14 +310,22 @@ const PostTxt = styled.p`
   font-size: 14px;
   line-height: 18px;
   margin-bottom: 16px;
+  word-wrap: break-word;
 `;
 
 const PostImgCont = styled.div`
-  position: relative;
   margin-bottom: 16px;
   max-height: 228px;
   border-radius: 10px;
-  overflow: hidden;
+
+  &.secondChange {
+    transform: translate(-304px);
+    transition: all 1s ease-in-out;
+  }
+  &.thirdChange {
+    transform: translate(-608px);
+    transition: all 1s ease-in-out;
+  }
 `;
 
 const PostImgList = styled.ul`
@@ -227,10 +334,11 @@ const PostImgList = styled.ul`
 
 const PostImgItem = styled.li`
   min-width: 304px;
-  width: 100%;
   max-height: 228px;
   min-height: 228px;
   border-radius: 10px;
+  position: relative;
+  box-sizing: border-box;
   overflow: hidden;
 `;
 
@@ -238,7 +346,43 @@ const PostImg = styled.img`
   border-radius: 10px;
   margin-bottom: 16px;
   height: 100%;
+  width: 304px;
   object-fit: cover;
+`;
+
+
+const PostImgBtnList = styled.ul`
+  position: absolute;
+  display: flex;
+  gap: 6px;
+  left: 60%;
+  bottom: 80px;
+  transform: translateX(-50%);
+  box-sizing: border-box;
+  list-style: none;
+
+  &.btnHidden {
+    display: none;
+  }
+`;
+
+const PostImgBtn = styled.button`
+  background-color: white;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  &.first-change {
+    background-color: ${COLOR.orange};
+  }
+  &.second-change {
+    background-color: ${COLOR.orange};
+  }
+  &.third-change {
+    background-color: ${COLOR.orange};
+  }
 `;
 
 const LikeCommentCont = styled.div`

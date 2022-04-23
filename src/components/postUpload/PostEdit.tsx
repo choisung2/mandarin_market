@@ -15,13 +15,13 @@ export const PostEdit = ({id}: id) => {
   
   const textAreaRef = useRef<HTMLTextAreaElement>(null)
 
-  const resizeHeight = useCallback(() => {
+  const resizeHeight = () => {
     if (textAreaRef === null || textAreaRef.current === null) {
       return
     }
     textAreaRef.current.style.height = '18px'
     textAreaRef.current.style.height = textAreaRef.current.scrollHeight + 'px'
-  }, [])
+  }
   
   const [text, setText] = useState("")
   const [isText, setIsText] = useState(false)
@@ -35,10 +35,13 @@ export const PostEdit = ({id}: id) => {
     }
   }
 
-  const { data: session } = useSession()
+  const token = window.localStorage.getItem('token')
+  const loginUser = window.localStorage.getItem('account')
 
-  const token = session?.user?.name
-  const loginUser = session?.user?.email
+  // const { data: session } = useSession()
+
+  // const token = session?.user?.name
+  // const loginUser = session?.user?.email
 
   const [profileImg, setProfileImg] = useState('/images/ellipse-profile.svg');
 
@@ -83,9 +86,8 @@ export const PostEdit = ({id}: id) => {
   };
 
   useEffect(() => {
-    getProfile()
-    getPost()
-  }, []);
+    if(id !== "0") getPost()
+  }, [id]);
 
   const deleteImg = (image: string) => {
     const currentIndex: number = images.indexOf(image)

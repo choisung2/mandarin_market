@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import { signOut } from "next-auth/react";
 import { COLOR } from "../../constants";
 
@@ -8,6 +8,15 @@ interface CloseLogoutModal {
 }
 
 export const LogOutModal = ({ closeLogoutModal }: CloseLogoutModal) => {
+
+  const router = useRouter()
+
+  const logout = () => {
+    window.localStorage.removeItem('account');
+    window.localStorage.removeItem('token');
+    router.push('/')
+  };
+
   return (
     <Container>
       <LogOutModalContainer>
@@ -19,7 +28,8 @@ export const LogOutModal = ({ closeLogoutModal }: CloseLogoutModal) => {
           <div>
             <Logout
               onClick={() =>
-                signOut({ callbackUrl: `${window.location.origin}` })
+                logout()
+                // signOut({ callbackUrl: `${window.location.origin}` })
               }
             >
               로그아웃
@@ -53,6 +63,18 @@ const LogoutText = styled.p`
   border-top-right-radius: 10px;
   font-size: 14px;
   padding: 23px 0;
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 220px;
+    height: 103px;
+    border-radius: 10px;
+    background: #fff;
+    z-index: -10;
+  }
 `;
 const LogOutBtnContainer = styled.div`
   border-top: 0.5px solid #dbdbdb;

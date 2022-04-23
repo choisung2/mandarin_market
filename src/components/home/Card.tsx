@@ -16,8 +16,11 @@ interface Hearted {
 }
 
 export const Card = ({ postData }: any) => {
-  const { data: session } = useSession();
-  const token = session?.user?.name;
+
+  const token = window.localStorage.getItem('token')
+
+  // const { data: session } = useSession();
+  // const token = session?.user?.name;
 
   const { author, image, content, commentCount, createdAt, id } = postData;
   

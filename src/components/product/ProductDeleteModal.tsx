@@ -20,9 +20,9 @@ export const ProductDeleteModal = ({ closeDeleteModal, id, token }: CloseDeleteM
       'Content-type': 'application/json',
     },
   })
-  closeDeleteModal()
-  router.push('/profile')
-  // window.location.href = '/myprofile'
+    router.push('/home')
+    router.push('/profile')
+    closeDeleteModal()
   }
 
   return (
@@ -64,6 +64,18 @@ const DeleteText = styled.p`
   border-top-right-radius: 10px;
   font-size: 14px;
   padding: 23px 0;
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 220px;
+    height: 103px;
+    border-radius: 10px;
+    background: #fff;
+    z-index: -10;
+  }
 `;
 const DeleteBtnContainer = styled.div`
   border-top: 0.5px solid #dbdbdb;

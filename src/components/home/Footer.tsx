@@ -8,9 +8,10 @@ import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import { useSession } from "next-auth/react";
 
 export const Footer = () => {
-  const { data: session } = useSession();
+  // const { data: session } = useSession();
+  // const loginUser = session?.user?.email;
 
-  const loginUser = session?.user?.email;
+  const loginUser = window.localStorage.getItem('account')
 
   return (
     <FooterContainer>

@@ -12,9 +12,11 @@ export const ProductRegister = () => {
   const [image, setImage] = useState("")
   const [isImage, setIsImage] = useState(false)
 
-  const { data: session } = useSession()
+  const token = window.localStorage.getItem('token')
 
-  const token = session?.user?.name
+  // const { data: session } = useSession()
+
+  // const token = session?.user?.name
 
   const getImage = (src: string) => {
     setImage(src)
@@ -65,8 +67,6 @@ export const ProductRegister = () => {
     }
   }
 
-  
-
   const uploadProduct = async () => {
     try{
       const productData = {
@@ -83,7 +83,6 @@ export const ProductRegister = () => {
           'Content-type': 'application/json',
         },
       });
-      console.log('완료.');
       router.replace('/profile');
     } catch (err) {
       console.log(err);

@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { API_ENDPOINT, COLOR } from "../../constants/index";
 
 interface CloseDeleteModal {
@@ -22,11 +22,14 @@ export const DeleteModal = ({ closeDeleteModal, id, token }: CloseDeleteModal) =
         'Content-type': 'application/json',
       },
     })
-
-    router.replace('/profile');
+    router.push('/home')
+    router.push('/profile')
     closeDeleteModal()
-    // window.location.reload()
   }
+
+  // useEffect(() => {
+  //   window.location.replace('/profile');
+  // }, [closeDeleteModal])
 
   return (
     <Container>
@@ -67,6 +70,18 @@ const DeleteText = styled.p`
   border-top-right-radius: 10px;
   font-size: 14px;
   padding: 23px 0;
+    position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 220px;
+    height: 103px;
+    border-radius: 10px;
+    background: #fff;
+    z-index: -10;
+  }
 `;
 const DeleteBtnContainer = styled.div`
   border-top: 0.5px solid #dbdbdb;

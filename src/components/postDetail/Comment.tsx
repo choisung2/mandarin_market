@@ -70,14 +70,16 @@ export const PostComment = ({commentData, token, loginUser, postId}: Comment) =>
           "Content-type": "application/json",
         },
       });
-      // router.push(`/postdetail/${postId}`)
+      router.push('/home')
+      router.push(`/postdetail/${postId}`)
       setComment('')
     } catch(err) {
       console.log(err);
     }
   };
 
-  const onSubmit = () => {
+  const onSubmit = (e: any) => {
+    e.preventDefault()
     uploadComment()
   }
 

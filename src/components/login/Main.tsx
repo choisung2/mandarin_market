@@ -20,7 +20,8 @@ export const LoginMain = () => {
         </Button>
         <LinkContainer>
           <li className="login">
-            <button onClick={() => signIn()}>이메일로 로그인</button>
+            <Link href="/login">이메일로 로그인</Link>
+            {/* <button onClick={() => signIn()}>이메일로 로그인</button> */}
           </li>
           <li>
             <Link href="/signup">회원가입</Link>
@@ -105,6 +106,6 @@ const LinkContainer = styled.ul`
     border-right: 1px solid #c4c4c4;
     display: inline-block;
     top: 2px;
-    left: 99px;
+    left: 90px;
   }
 `;

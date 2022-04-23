@@ -9,8 +9,11 @@ import { useSession } from "next-auth/react";
 import { API_ENDPOINT } from "../constants";
 
 const Research: NextPage = () => {
-  const { data: session } = useSession();
-  const token = session?.user?.name;
+
+  const token = window.localStorage.getItem('token')
+
+  // const { data: session } = useSession();
+  // const token = session?.user?.name;
 
   const [researchValue, setResearchValue] = useState("");
   const [researchCards, setResearchCards] = useState([]);

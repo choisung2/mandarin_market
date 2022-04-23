@@ -58,10 +58,13 @@ export const PostDetailContainer = ({postId}: PostId) => {
     id: ""
   }])
 
-  const { data: session } = useSession();
+  const token = window.localStorage.getItem('token')
+  const loginUser = window.localStorage.getItem('account')
 
-  const token = session?.user?.name;
-  const loginUser = session?.user?.email;
+  // const { data: session } = useSession();
+
+  // const token = session?.user?.name;
+  // const loginUser = session?.user?.email;
 
   const getPostData = async () => {
     const res = await axios.get(`${API_ENDPOINT}post/${postId}`, {

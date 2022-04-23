@@ -149,6 +149,7 @@ const AuthorImg = styled.img`
   border: 0.5px solid #dbdbdb;
   border-radius: 50%;
   margin-right: 12px;
+  z-index: -100;
 `;
 
 const AuthorNickName = styled.strong`

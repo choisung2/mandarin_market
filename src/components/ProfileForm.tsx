@@ -12,8 +12,11 @@ interface BtnLabel {
 }
 
 export const ProfileForm = ({ btnLabel, signUp }: BtnLabel) => {
-  const { data: session } = useSession();
-  const token = session?.user?.name;
+
+  const token = window.localStorage.getItem('token')
+
+  // const { data: session } = useSession();
+  // const token = session?.user?.name;
 
   const [name, setName] = useState("");
   const [myId, setMyId] = useState("");

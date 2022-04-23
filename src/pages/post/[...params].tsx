@@ -11,8 +11,8 @@ import { useState, useEffect } from "react";
 
 const Edit: NextPage = () => {
   const router = useRouter();
-  // const id = router.asPath.split('/')[2]
   const [id, setId] = useState("0");
+  
   useEffect(() => {
     try {
       setId(router.query.params![0]);

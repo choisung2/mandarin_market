@@ -33,9 +33,11 @@ export const Main = () => {
     },
   ]);
 
-  const { data: session } = useSession();
+  const token = window.localStorage.getItem('token')
+  
+  // const { data: session } = useSession();
 
-  const token = session?.user?.name;
+  // const token = session?.user?.name;
 
   const userData = async () => {
     try {

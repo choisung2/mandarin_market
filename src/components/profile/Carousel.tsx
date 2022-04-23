@@ -29,10 +29,13 @@ export const Carousel = ({account}: Account) => {
     price: 0
   }])
 
-  const { data: session } = useSession()
+  const token = window.localStorage.getItem('token')
+  const loginUser = window.localStorage.getItem('account')
 
-  const token = session?.user?.name
-  const loginUser = session?.user?.email
+  // const { data: session } = useSession()
+
+  // const token = session?.user?.name
+  // const loginUser = session?.user?.email
 
   const [isModal, setIsModal] = useState(false);
   const [isDelModal, setIsDelModal] = useState(false);
@@ -63,7 +66,7 @@ export const Carousel = ({account}: Account) => {
 
   useEffect(() => {
     getProduct()   
-  }, []);
+  }, [account]);
 
   const [link, setLink] = useState("")
   const [productId, setProductId] = useState("")

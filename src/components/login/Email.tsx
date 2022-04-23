@@ -1,9 +1,10 @@
 import styled from "@emotion/styled";
-import { COLOR } from "../../constants";
+import { API_ENDPOINT, COLOR } from "../../constants";
 import { useCallback, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { getSession, signIn } from "next-auth/react";
+import axios from "axios";
 
 export const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -37,23 +38,45 @@ export const LoginPage = () => {
     }
   }, []);
 
-  const login = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const res: any = await signIn("email-password-credential", {
-      email,
-      password,
-      redirect: false,
-      callbackUrl: "https://mandarin-market-topaz.vercel.app/home",
-    });
+  const onSubmit = async (e: any) => {
+    e.preventDefault()
+    const user = {
+      user: {
+        email: email,
+        password: password,
+      },
+    } 
+    const res = await axios.post(`${API_ENDPOINT}user/login`, user, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })    
+    if(res.data.message) {
+      setLoginError(res.data.message)
+    } else {
+      window.localStorage.setItem('account', res.data.user.accountname);
+      window.localStorage.setItem('token', res.data.user.token);
+      router.push('/home')
+    }
+  }
 
-    const data = await getSession();
-    if (data) await router.push(res.url);
-  };
+  // const login = async (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   const res: any = await signIn("email-password-credential", {
+  //     email,
+  //     password,
+  //     redirect: false,
+  //     callbackUrl: "https://mandarin-market-5e4tlw8y9-choisung2.vercel.app/home",
+  //   });
+
+  //   const data = await getSession();
+  //   if (data) await router.push(res.url);
+  // };
 
   return (
     <Container>
       <Title>로그인</Title>
-      <Form onSubmit={login}>
+      <Form onSubmit={onSubmit}>
         <Label>
           <SubText>이메일</SubText>
           <Input

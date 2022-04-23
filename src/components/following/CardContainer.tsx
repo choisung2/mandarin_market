@@ -16,10 +16,13 @@ export const CardContainer = () => {
     },
   ]);
 
-  const { data: session } = useSession();
+  const token = window.localStorage.getItem('token')
+  const loginUser = window.localStorage.getItem('account')
 
-  const loginUser = session?.user?.email;
-  const token = session?.user?.name;
+  // const { data: session } = useSession();
+
+  // const loginUser = session?.user?.email;
+  // const token = session?.user?.name;
 
   const usersData = async () => {
     try {
