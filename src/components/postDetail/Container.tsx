@@ -87,9 +87,11 @@ export const PostDetailContainer = ({postId}: PostId) => {
   }
    
   useEffect(() => {
-    getPostData();
-    getCommentData();
-  }, []);
+    if(postId) {
+      getPostData();
+      getCommentData();
+    }
+  }, [postId]);
   
   const [myProfileModal, setMyProfileModal] = useState(false);
   const [logoutModal, setLogoutModal] = useState(false);

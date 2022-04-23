@@ -14,8 +14,13 @@ const Home: NextPage = () => {
       </Head>
       <h1 className="sr-only">감귤마켓 홈화면과 피드</h1>
       <Header />
-      <Main />
-      <Footer />
+      {typeof window !== 'undefined' && (
+        <>
+          <Main />
+          <Footer />    
+        </>
+      )}
+      
     </div>
   );
 };

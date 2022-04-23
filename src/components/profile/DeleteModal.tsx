@@ -22,15 +22,10 @@ export const DeleteModal = ({ closeDeleteModal, id, token }: CloseDeleteModal) =
         'Content-type': 'application/json',
       },
     })
-    router.push('/home')
-    router.push('/profile')
     closeDeleteModal()
+    window.location.reload()
   }
-
-  // useEffect(() => {
-  //   window.location.replace('/profile');
-  // }, [closeDeleteModal])
-
+  
   return (
     <Container>
       <DeleteModalContainer>

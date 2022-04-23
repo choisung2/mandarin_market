@@ -7,33 +7,9 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { API_ENDPOINT } from "../constants";
+import { ResearchContainer } from "../components/research/Container";
 
 const Research: NextPage = () => {
-
-  const token = window.localStorage.getItem('token')
-
-  // const { data: session } = useSession();
-  // const token = session?.user?.name;
-
-  const [researchValue, setResearchValue] = useState("");
-  const [researchCards, setResearchCards] = useState([]);
-
-  const Cards = async () => {
-    const res = await axios.get(
-      `${API_ENDPOINT}user/searchuser/?keyword=${researchValue}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-type": "application/json",
-        },
-      }
-    );
-    if (res.data.length > 0) setResearchCards(res.data);
-  };
-
-  useEffect(() => {
-    Cards();
-  }, [researchValue]);
 
   return (
     <div id="app">
@@ -43,9 +19,7 @@ const Research: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <h1 className="sr-only">감귤마켓 홈화면과 피드</h1>
-      <Header setResearchValue={setResearchValue} />
-      <Main researchCards={researchCards} />
-      <Footer />
+      {typeof window !== 'undefined' && <ResearchContainer /> }
     </div>
   );
 };

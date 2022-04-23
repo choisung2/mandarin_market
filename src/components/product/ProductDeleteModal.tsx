@@ -20,9 +20,8 @@ export const ProductDeleteModal = ({ closeDeleteModal, id, token }: CloseDeleteM
       'Content-type': 'application/json',
     },
   })
-    router.push('/home')
-    router.push('/profile')
     closeDeleteModal()
+    window.location.reload()
   }
 
   return (

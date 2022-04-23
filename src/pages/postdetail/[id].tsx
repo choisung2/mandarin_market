@@ -1,11 +1,12 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { PostDetailContainer } from "../../components/postDetail/Container";
 
 const PostDetail: NextPage = () => {
   const router = useRouter()
-  const postId = router.query.id
+  const postId = router.query!.id
 
   return (
     <>
