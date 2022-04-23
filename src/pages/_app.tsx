@@ -3,13 +3,13 @@ import type { AppProps } from "next/app";
 import { Layout } from "../components/layouts";
 import { SessionProvider } from "next-auth/react";
 
-function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+function App({ Component, pageProps: { pageProps } }: AppProps) {
   return (
-    <SessionProvider session={session}>
+    // <SessionProvider session={session}>
       <Layout>
         <Component {...pageProps} />
       </Layout>
-    </SessionProvider>
+    // </SessionProvider>
   );
 }
 
