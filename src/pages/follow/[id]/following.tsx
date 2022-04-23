@@ -12,7 +12,7 @@ const Following: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      <Main />
+      {typeof window !== 'undefined' && <Main />}
       <Footer />
     </div>
   );

@@ -12,7 +12,7 @@ const Product: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <h1 className="sr-only">상품 등록 페이지</h1>
-      <ProductContainer />
+      {typeof window !== 'undefined' && <ProductContainer />}
     </section>
   );
 };

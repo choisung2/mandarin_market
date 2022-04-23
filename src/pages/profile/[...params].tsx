@@ -25,7 +25,7 @@ const Profile: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <h1 className="sr-only">유저 프로필과 대시보드</h1>
-      <MyContainer account={account} />
+      {typeof window !== 'undefined' && <MyContainer account={account} />}
       <Footer />
     </section>
   );

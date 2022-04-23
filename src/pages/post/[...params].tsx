@@ -29,7 +29,7 @@ const Edit: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <h1 className="sr-only">게시글 수정</h1>
-      <EditContainer id={id} />
+      {typeof window !== 'undefined' && <EditContainer id={id} />}
     </section>
   );
 };

@@ -15,7 +15,7 @@ const PostDetail: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <h1 className="sr-only">게시글 상세 페이지</h1>
-      <PostDetailContainer postId={postId}/>
+      {typeof window !== 'undefined' && <PostDetailContainer postId={postId}/> }
     </>
   );
 };

@@ -10,9 +10,11 @@ const Edit: NextPage = () => {
       <Nav>
         <BackButton />
       </Nav>
-      <ProContainer>
-        <ProfileForm signUp={{ email: "", password: "" }} btnLabel="저장" />
-      </ProContainer>
+      {typeof window !== 'undefined' && (
+        <ProContainer>
+          <ProfileForm signUp={{ email: "", password: "" }} btnLabel="저장" />
+        </ProContainer>
+      )}
     </Container>
   );
 };

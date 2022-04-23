@@ -12,7 +12,7 @@ const MyProfile: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <h1 className="sr-only">마이 프로필과 대시보드</h1>
-      <MyContainer account={undefined} />
+      {typeof window !== 'undefined' && <MyContainer account={undefined} /> }
       <Footer />
     </section>
   );

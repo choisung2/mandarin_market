@@ -12,7 +12,7 @@ const Upload: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <h1 className="sr-only">게시글 작성</h1>
-      <UploadContainer />
+      {typeof window !== 'undefined' && <UploadContainer />}
     </section>
   );
 };
