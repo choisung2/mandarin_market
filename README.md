@@ -1,25 +1,59 @@
-## 감귤마켓
-- 멋쟁이사자처럼 프론트엔드 스쿨 1기 팀 프로젝트로 진행한 감귤마켓입니다.
-- 상품을 등록하고 판매할 수 있는 SNS 마켓입니다.
-- 글, 사진과 함께 자신의 일상을 공유할 수 있습니다.
+# 🍊감귤마켓
+<i>기간: 22.01 - 22.04</i>
 
-개발 기간: 22.01. - 22.04.
+[Deploy](https://mandarin-market-three.vercel.app/)
 
-## 스택
+
+<br>
+
+## 1. 프로젝트 소개
+- 멋쟁이사자처럼 프론트엔드 스쿨 1기 팀 프로젝트로 진행한 감귤마켓입니다
+- 상품을 등록, 판매하고 자신의 일상을 공유할 수 있는 SNS 마켓입니다
+
+<br>
+
+## 2. 스택
 - React Hook
-- TypeScript
 - Next.js
+- TypeScript
 - Emotion
 
-## 실행 방법
----
+<br>
 
-To Start
-```bash
-$yarn dev
-```
+## 3. 역할 분담
+각 기능 별로 역할을 나누어 진행하였습니다
 
-## 폴더 구조
+### 김정희
+<i>[github/wjdgml3834](https://github.com/wjdgml3834)</i>
+  - 홈 화면 게시글
+  - 팔로우, 팔로우 취소
+  - 게시글 복수 이미지 캐러셀
+  - 팔로워, 팔로잉 페이지
+
+### 이현호
+<i>[github/LEEHYUNHO2001](https://github.com/LEEHYUNHO2001)</i>
+  - next-auth를 이용한 로그인
+  - 회원가입, 프로필 미리보기
+  - 감귤마켓의 유저 검색
+  - 좋아요 및 좋아요 취소
+  - 프로필 수정
+
+### 최성이
+<i>[github/choisung2](https://github.com/choisung2)</i>
+  - 게시글 등록, 수정, 삭제
+  - 상품 등록, 수정, 삭제
+  - 게시글 상세 페이지
+  - 유저 프로필
+  - 댓글 기능
+
+<br>
+
+
+## 4. 폴더 구조
+<details>
+<summary><i>펼쳐보기</i></summary>
+<div markdown="1">       
+
 ```bash
 ├── src
 │   ├── components
@@ -147,13 +181,17 @@ $yarn dev
 │       └── Product.ts
 ```
 
+</div>
+</details>
 
+### 실행 방법
+```bash
+$yarn dev
+```
 
-## 기능
+<br>
 
-## 김정희
-
----
+## 5. 기능
 
 ### 1) 홈
 
@@ -199,8 +237,8 @@ $yarn dev
 |:-:|:-:|:-:|
 |![상품 등록](https://user-images.githubusercontent.com/92927950/163724024-ceb61044-9c50-4ae5-9887-33d9377ee03a.gif)|![상품 수정](https://user-images.githubusercontent.com/92927950/163724026-53f59a62-5b9e-4add-aa51-7df00633ab0d.gif)|![상품 삭제](https://user-images.githubusercontent.com/92927950/163724028-9ddf16aa-a5a2-4594-b9f8-10f87b5b04a9.gif)|
 
+<br>
 
-
-## 느낀점
-
-### 김정희 😎
+## 6. 느낀점
+- 이번 프로젝트에서 Next.js, TypeScript 를 처음 접했습니다. 초반에는 어려운 부분이 많아 많이 헤맸지만 열심히 공부하며, 팀원분들과 소통하며 빠르게 성장할 수 있었던 것 같습니다. 배울 수 있는 기회가 많았던 프로젝트였습니다.
+- 아쉬운 점은 1. 타입 스크립트 사용이 미흡했다는 점과 next에서 제공하는 dynamic 을 활용하지 못했다는 점입니다. 추후 리팩토링 시 any와 never 등의 타입은 대체할 예정이며, dynamic의 ssr 옵션 등을 활용해 보고 싶습니다.
